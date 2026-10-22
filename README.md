@@ -42,3 +42,6 @@ python -m pytest -q
 ```
 
 Tests use a temporary database and leave `clinic.db` untouched.
+
+## License
+This project is available with MIT license.
