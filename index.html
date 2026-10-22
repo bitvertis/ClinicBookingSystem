@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CareNest Clinic Booking</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="CareNest home">
+        <span class="brand-mark">+</span>
+        <span>CareNest Clinic</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#booking">Book</a>
+        <a href="#admin">Admin</a>
+      </nav>
+      <a class="whatsapp" id="whatsappTop" target="_blank" rel="noreferrer">WhatsApp</a>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Family medicine, preventive care, and quick appointments</p>
+          <h1>Book a calm, reliable clinic visit in minutes.</h1>
+          <p class="hero-text">Your health deserves care that feels close, quick, and human. Choose a service, reserve your slot, and connect with our clinic team in just a few taps.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#booking">Book appointment</a>
+            <a class="secondary-btn" href="#lead">Request a callback</a>
+          </div>
+          <div class="trust-row" aria-label="Clinic highlights">
+            <span>Same-day slots</span>
+            <span>Digital queue</span>
+            <span>Follow-up reminders</span>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="Today at CareNest">
+          <div class="pulse-card">
+            <span class="pulse-dot"></span>
+            <div>
+              <strong>3 doctors online</strong>
+              <small>Average wait: 12 minutes</small>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <div>
+              <strong>4.9</strong>
+              <small>Patient rating</small>
+            </div>
+            <div>
+              <strong>24/7</strong>
+              <small>WhatsApp support</small>
+            </div>
+          </div>
+          <div class="doctor-card">
+            <div class="avatar">DR</div>
+            <div>
+              <strong>Next available</strong>
+              <small>Dr. Raina, General Consultation, 11:30 AM</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section band" id="services">
+        <div class="section-head">
+          <p class="eyebrow">Services</p>
+          <h2>Care pathways for everyday health</h2>
+        </div>
+        <div class="service-grid" id="serviceGrid"></div>
+      </section>
+
+      <section class="section split" id="pricing">
+        <div>
+          <p class="eyebrow">Pricing</p>
+          <h2>Transparent visit fees</h2>
+          <p>Clear consultation fees help you choose the right care with confidence. Review visit options upfront, then book the time that works best for you.</p>
+        </div>
+        <div class="pricing-list" id="pricingList"></div>
+      </section>
+
+      <section class="section booking-section" id="booking">
+        <div class="form-intro">
+          <p class="eyebrow">Appointments</p>
+          <h2>Choose a service and preferred slot</h2>
+          <p>Every booking is stored in SQLite and appears immediately in the admin dashboard.</p>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <label>
+            Full name
+            <input name="name" autocomplete="name" required placeholder="Aarav Mehta">
+          </label>
+          <label>
+            Phone
+            <input name="phone" autocomplete="tel" required placeholder="+91 98765 43210">
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" placeholder="name@example.com">
+          </label>
+          <label>
+            Service
+            <select name="service" id="serviceSelect" required></select>
+          </label>
+          <label>
+            Date
+            <input name="appointment_date" type="date" required>
+          </label>
+          <label>
+            Time
+            <input name="appointment_time" type="time" required>
+          </label>
+          <label class="wide">
+            Notes
+            <textarea name="notes" rows="4" placeholder="Symptoms, preferred doctor, or anything we should know"></textarea>
+          </label>
+          <button class="primary-btn wide" type="submit">Confirm booking</button>
+          <p class="form-status wide" id="bookingStatus" role="status"></p>
+        </form>
+      </section>
+
+      <section class="section split lead-section" id="lead">
+        <div>
+          <p class="eyebrow">Request a callback</p>
+          <h2>Need help choosing the right care?</h2>
+          <p>Leave your details and our clinic team will follow up to answer questions, suggest the right service, or help you find a convenient appointment time.</p>
+          <a class="whatsapp large" id="whatsappLead" target="_blank" rel="noreferrer">Chat on WhatsApp</a>
+        </div>
+        <form class="lead-form" id="leadForm">
+          <label>
+            Name
+            <input name="name" required placeholder="Patient name">
+          </label>
+          <label>
+            Phone
+            <input name="phone" required placeholder="+91 98765 43210">
+          </label>
+          <label>
+            Interested in
+            <select name="interest" id="leadInterest" required></select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" placeholder="Tell us what you need"></textarea>
+          </label>
+          <button class="secondary-btn" type="submit">Request callback</button>
+          <p class="form-status" id="leadStatus" role="status"></p>
+        </form>
+      </section>
+
+      <section class="section admin-section" id="admin">
+        <div class="section-head">
+          <p class="eyebrow">Admin dashboard</p>
+          <h2>Clinic desk overview</h2>
+        </div>
+        <div class="admin-stats" id="adminStats"></div>
+        <div class="admin-panels">
+          <div class="admin-panel">
+            <div class="panel-head">
+              <h3>Appointments</h3>
+              <button class="icon-btn" id="refreshAdmin" type="button" title="Refresh">↻</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Service</th>
+                    <th>Slot</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="appointmentRows"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="admin-panel">
+            <div class="panel-head">
+              <h3>Leads</h3>
+            </div>
+            <div class="lead-list" id="leadRows"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>CareNest Clinic</span>
+      <span>Copyright BitVertis. All rights reserved.</span>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
